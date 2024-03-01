@@ -1,0 +1,54 @@
+<!-- views/admin.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/astyle.css">
+  <title>Admin Page</title>
+</head>
+<body>
+  <h1>Admin Page</h1>
+  <p>Welcome, Administrator!</p>
+
+  <!-- Add admin-specific content here -->
+  <h2>Add Portfolio Item</h2>
+  <form action="/addPortfolioItem" method="POST" enctype="multipart/form-data">
+    <label for="name">Name:</label>
+    <input type="text" name="name" required>
+    <label for="description">Description:</label>
+    <textarea name="description" required></textarea>
+    <label for="images">Images</label>
+    <input type="file" name="images" accept="image/*" multiple>
+    <button type="submit">Add Portfolio</button>
+  </form>
+
+  <h2>Edit Portfolio Items</h2>
+<ul>
+  <% portfolioItems.forEach(item => { %>
+    <li>
+      <form action="/editPortfolioItem/<%= item._id %>" method="POST" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="<%= item.name %>" required>
+        <label for="description">Description:</label>
+        <textarea name="description" required><%= item.description %></textarea>
+        <label for="newImages">Add new Images:</label>
+        <input type="file" name="newImages" accept="image/*" multiple>
+        <button type="submit">Edit</button>
+      </form>
+      <form action="/deletePortfolioItem/<%= item._id %>" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+    </li>
+  <% }); %>
+</ul>
+
+  <a href="/logout">Logout</a><br>
+  <a href="/page1">Wanna watch video?</a><br>
+  <a href="/page2">Wanna some intresting fact?</a><br>
+  <a href="/page3">Wanna NASA picture of the day?</a><br>
+  <a href="/page4">Wanna see chart?</a><br>
+  <a href="/page5">Wanna see crypto graph?</a><br>
+</body>
+</html>

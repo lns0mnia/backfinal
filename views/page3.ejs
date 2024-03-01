@@ -1,0 +1,23 @@
+<!-- views/page3.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NASA Open API Demo</title>
+</head>
+<body>
+  <h1>NASA Astronomy Picture of the Day</h1>
+
+  <% if (nasaData) { %>
+    <h2><%= nasaData.title %></h2>
+    <img src="<%= nasaData.url %>" alt="NASA APOD">
+    <p><%= nasaData.explanation %></p>
+  <% } else { %>
+    <p>Error loading NASA data</p>
+  <% } %>
+
+  <a href="/register">Back to registration</a>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Market Pair Data</title>
+</head>
+<body>
+  <h1>Market Pair Data</h1>
+  
+  <!-- Create a canvas element to render the chart -->
+  <canvas id="marketPairChart" width="400" height="200"></canvas>
+
+  <script>
+    // Extract market pair data from your API response
+    const marketPairData = {
+        "data": {
+      "token0": {
+        "address": "0x09bc4e0d864854c6afb6eb9a9cdf58ac190d0df9",
+        "symbol": "USDC",
+        "name": "USDC",
+        "price": 0.9995000398604214,
+        "priceToken": 0.9995000398604214,
+        "priceTokenString": "0.99950003986042135206702141658752",
+        "logo": "https://metacore.mobula.io/9b4a08fadc7e3bed84e2eb662e097221da46ce2fedfc77f9fa8c1b3fa0c6cded.png",
+        "id": 100012309,
+        "approximateReserveUSD": 1729506.9671609718,
+        "approximateReserveTokenRaw": "1733339186918",
+        "approximateReserveToken": 1733339.1869,
+        "decimals": 6
+      },
+      "token1": {
+        "address": "0x201eba5cc46d216ce6dc03f6a759e8e766e956ae",
+        "symbol": "USDT",
+        "name": "Mantle Bridged USDT (Mantle)",
+        "logo": "https://metacore.mobula.io/919bb4282984c66939f300e5a665ade6aa09b00b5815c1603ad3fef948aa72bc.png",
+        "id": 102479355,
+        "price": 1.0005002102247524,
+        "priceToken": 1.0005002102247524,
+        "priceTokenString": "1.00050021022475243981375570001546",
+        "approximateReserveUSD": 1150251.9157878966,
+        "approximateReserveTokenRaw": "1149818283568",
+        "approximateReserveToken": 1149818.2835,
+        "decimals": 6
+      },
+      "volume24h": 618085.8314333315,
+      "liquidity": 2879758.8829488684,
+      "blockchain": "Mantle",
+      "address": "0x6488f911c6cd86c289aa319c5a826dcf8f1ca065",
+      "createdAt": "2023-09-21T08:54:15.772Z",
+      "type": "univ3",
+      "baseToken": "token1",
+      "exchange": "Uniswap V3",
+      "factory": "0x25780dc8fc3cfbd75f33bfdab65e969b603b2035",
+      "quoteToken": "token0",
+      "price": 1.0005002102247524,
+      "priceToken": 1.0005002102247524,
+      "priceTokenString": "1.00050021022475243981375570001546"
+    }
+  };
+
+    // Get the canvas element and context
+  const ctx = document.getElementById('marketPairChart').getContext('2d');
+
+// Create a function to update the chart with new data
+const updateChart = (data) => {
+  // Extract data for token0 and token1
+  const token0Data = data.data.token0;
+  const token1Data = data.data.token1;
+
+  // Create labels and datasets for tokens
+  const labels = ['Symbol', 'Name', 'Price', 'Logo', 'Approximate Reserve USD', 'Approximate Reserve Token', 'Decimals'];
+  const token0Dataset = {
+    label: 'Token 0 (USDC)',
+    data: [token0Data.symbol, token0Data.name, token0Data.price, token0Data.logo, token0Data.approximateReserveUSD, token0Data.approximateReserveToken, token0Data.decimals],
+    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Adjust color as needed
+    borderColor: 'rgba(75, 192, 192, 1)',
+    borderWidth: 1,
+    fill: false,
+  };
+  const token1Dataset = {
+    label: 'Token 1 (USDT)',
+    data: [token1Data.symbol, token1Data.name, token1Data.price, token1Data.logo, token1Data.approximateReserveUSD, token1Data.approximateReserveToken, token1Data.decimals],
+    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Adjust color as needed
+    borderColor: 'rgba(255, 99, 132, 1)',
+    borderWidth: 1,
+    fill: false,
+  };
+
+  // Create a chart
+  const marketPairChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [token0Dataset, token1Dataset],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+};
+
+// Call the updateChart function with your market pair data
+updateChart(marketPairData);
+</script>
+<a href="/register">Back to registration</a>
+</body>
+</html>

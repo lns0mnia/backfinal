@@ -1,0 +1,153 @@
+<!-- views/home.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home Page</title>
+  <style>
+    /* Global styles */
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    /* Portfolio Carousel */
+    #portfolioCarousel {
+      margin-bottom: 50px; /* Add some spacing below the carousel */
+    }
+
+    .carousel-item {
+      text-align: center; /* Center text within carousel items */
+    }
+
+    .carousel-item h3 {
+      margin-bottom: 15px;
+    }
+
+    .carousel-item p {
+      margin-bottom: 20px; /* Add some spacing below descriptions */
+    }
+
+    .img-fluid {
+      /* Adjust image styles as needed */
+      object-fit: cover; /* Potentially improve image display */
+      width: 100%; /* Ensure images fill container width */
+    }
+
+    .col-md-4 {
+      padding: 0 10px; /* Add some padding between images */
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 50px; /* Add some spacing above the footer */
+    }
+
+    a {
+      /* Optional styling for links */
+      color: blue;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsiveness (optional) */
+    @media (max-width: 768px) {
+      /* Adjust styles for smaller screens as needed */
+      .col-md-4 {
+        width: 50%;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/tiny-slider.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/min/tiny-slider.js"></script>
+  <script>
+    // Function to format timestamp to a readable date
+    function formatDate(timestamp) {
+      const date = new Date(timestamp);
+      return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var sliders = document.querySelectorAll('.portfolio-slider');
+      sliders.forEach(function (slider) {
+        tns({
+          container: slider,
+          items: 3,
+          slideBy: 'page',
+          autoplay: true,
+          autoplayButtonOutput: false,
+          mouseDrag: true,
+          controls: false,
+          nav: false
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+    <h1>Welcome <%= user.firstName %> <%= user.lastName %>!</h1>
+    <p>Username: <%= user.username %></p>
+    <p>Age: <%= user.age %></p>
+    <p>Country: <%= user.country %></p>
+    <p>Gender: <%= user.gender %></p>
+  
+    <!-- Display portfolio items in well-designed blocks -->
+    <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <% portfolioItems.forEach((item, index) => { %>
+          <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+            <h3><%= item.name %></h3>
+            <p><%= item.description %></p>
+  
+            <!-- Display Images -->
+            <div class="row">
+              <% item.images.forEach(image => { %>
+                <div class="col-md-4">
+                  <img src="data:image;base64,<%= image %>" class="img-fluid" alt="Portfolio Image">
+                </div>
+              <% }); %>
+            </div>
+  
+            <!-- Display Creation and Last Editing Time -->
+            <p>Created: <%= formatDate(item.timestamps.createdAt) %></p>
+            <p>Last Edited: <%= formatDate(item.timestamps.updatedAt) %></p>
+          </div>
+        <% }); %>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <a href="/logout">Logout</a><br>
+  <a href="/page1">Wanna watch video?</a><br>
+  <a href="/page2">Wanna some intresting fact?</a><br>
+  <a href="/page3">Wanna NASA picture of the day?</a>
+  <a href="/page4">Wanna see chart?</a><br>
+  <a href="/page5">Wanna see crypto graph?</a><br>
+</body>
+</html>

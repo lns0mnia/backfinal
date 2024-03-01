@@ -1,0 +1,94 @@
+<!-- views/page4.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Book Data</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>Order Book Data</h1>
+  
+  <canvas id="orderBookChart" width="400" height="200"></canvas>
+  <script>
+    // Extract order book data from your API response
+    const orderBookData = {
+        "retCode": 0,
+  "retMsg": "OK",
+  "result": {
+    "s": "BTCUSDT",
+    "b": [
+      ["62186", "12.091"],
+      ["62185.4", "0.002"],
+      // ... more buy orders ...
+    ],
+    "a": [
+      ["62186.1", "0.517"],
+      ["62189.5", "0.032"],
+      // ... more sell orders ...
+    ],
+    "ts": 1709296065784,
+    "u": 1206707,
+    "seq": 3896596315
+  },
+  "retExtInfo": {},
+  "time": 1709296065861
+    };
+
+    // Get the canvas element and context
+    const ctx = document.getElementById('orderBookChart').getContext('2d');
+
+    // Create a function to update the chart with new data
+    const updateChart = (data) => {
+      // Extract bids and asks from your data
+      const bids = data.result.b;
+      const asks = data.result.a;
+
+      // Create labels and datasets for bids and asks
+      const labels = bids.map(bid => bid[0]);
+      const bidDataset = {
+        label: 'Bids',
+        data: bids.map(bid => bid[1]),
+        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Adjust color as needed
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+        fill: false,
+      };
+      const askDataset = {
+        label: 'Asks',
+        data: asks.map(ask => ask[1]),
+        backgroundColor: 'rgba(255, 99, 132, 0.2)', // Adjust color as needed
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1,
+        fill: false,
+      };
+
+      // Create a chart
+      const orderBookChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [bidDataset, askDataset],
+        },
+        options: {
+          scales: {
+            x: {
+              type: 'linear', // Use linear scale for x-axis
+              position: 'bottom',
+            },
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    };
+
+    // Call the updateChart function with your order book data
+    updateChart(orderBookData);
+  </script>
+  <a href="/register">Back to registration</a>
+</body>
+</html>

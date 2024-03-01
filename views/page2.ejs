@@ -1,0 +1,59 @@
+<!-- page2.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page 2</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Did You Know?</title>
+  <style>
+    /* General styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* Heading style */
+    h1 {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    /* Fact container */
+    .fact {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    /* Fact label */
+    .fact-label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    /* Fact number */
+    .fact-number {
+      font-size: 1.2em;
+      color: #007bff; /* Blue */
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Fact</h1>
+  <p>Number: <%= randomFact.number %></p>
+  <p>Text: <%= randomFact.text %></p>
+  <a href="/register">Back to registration</a>
+</body>
+</html>
